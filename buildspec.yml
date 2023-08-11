@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
@@ -6,6 +7,7 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - pip install -r requirements.txt -t lib
+
   build:
     commands:
       - echo "Zipping deployment package..."
@@ -13,9 +15,11 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
+
   post_build:
     commands:
-      - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
+      - echo "Uploading artifact to S3..."
+      - aws s3 cp deployment_package.zip s3://codepipeline-eu-west-2-128906238024/
+      - echo "Updating Lambda function..."
+      - aws lambda update-function-code --function-name github-lambda-demo --s3-bucket codepipeline-eu-west-2-128906238024 --s3-key deployment_package.zip
       - echo "DONE!!"
-  
