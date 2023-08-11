@@ -1,7 +1,21 @@
-import pandas as pd
+import json
 
-def lambda_handler(event, context):
-    d = {'col1': [1,2], 'col2': [3,4]}
-    df = pd.DataFrame(data=d)
-    print(df)
-    print('Done x1.1')
+def hello(event, context):
+    try:
+        # Get the query parameter 'name' from the event
+        name = event.get('queryStringParameters', {}).get('name', 'World')
+        # Generate the greeting message
+        message = f"Hello, {name}!"
+
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': json.dumps({'message': message})
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
+        }
