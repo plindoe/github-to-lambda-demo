@@ -13,12 +13,13 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
+  artifacts:
+    files:
+      - '**/*'                # Include all files and directories
+    discard-paths: no
   post_build:
     commands:
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
-  artifacts:
-    files:
-      - '**/*'                # Include all files and directories
-    discard-paths: no
+  
