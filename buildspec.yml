@@ -18,3 +18,7 @@ phases:
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
+  artifacts:
+    files:
+      - '**/*'                # Include all files and directories
+    discard-paths: no
