@@ -1,0 +1,15 @@
+service: github-lambda-demo
+frameworkVersion: '3.33.0'
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-2
+
+functions:
+  hello:
+    handler: lambda_function.hello
+    events:
+      - http:
+          path: hello
+          method: get
