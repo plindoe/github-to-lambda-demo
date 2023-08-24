@@ -16,7 +16,7 @@ phases:
 post_build:
   commands:
     - echo "Updating lambda Function..."
-    - aws lambda update-function-code --function-name github-lambda-demo2 --zip-file fileb://deployment_package.zip
+    - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
     - echo "Cleaning up deployment artifacts..."
     - rm deployment_package.zip  # Remove the local artifact
     - aws s3 rm s3://codepipeline-eu-west-2-128906238024/deployment_package.zip  # Remove the artifact from S3
