@@ -5,7 +5,7 @@ def hello(event, context):
         # Get the query parameter 'name' from the event
         name = event.get('queryStringParameters', {}).get('name', 'World')
         # Generate the greeting message
-        message = f"Hello, your name is {name}!"
+        message = f"Hello, your name i  {name}!"
 
         return {
             'statusCode': 200,
