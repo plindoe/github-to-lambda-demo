@@ -13,8 +13,8 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
-      - cp appspec.yml deployment_package.zip  # Include the appspec.yml in the deployment package
-      - cp -r scripts deployment_package.zip  # Include the entire scripts folder in the deployment package
+     # - cp appspec.yml deployment_package.zip  # Include the appspec.yml in the deployment package
+     # - cp -r scripts deployment_package.zip  # Include the entire scripts folder in the deployment package
 post_build:
   commands:
     - echo "Updating lambda Function..."
