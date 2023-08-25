@@ -3,7 +3,7 @@ resources:
   - myLambdaFunction:
       Type: AWS::Lambda::Function
       Properties:
-        Name: my-lambda-function-name
+        Name: github-lambda-demo
         Alias: live
 hooks:
   ApplicationStop:
