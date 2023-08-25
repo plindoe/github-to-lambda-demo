@@ -13,20 +13,15 @@ phases:
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
+      - cp appspec.yml deployment_package.zip  # Include the appspec.yml in the deployment package
+      - cp -r scripts deployment_package.zip  # Include the entire scripts folder in the deployment package
 post_build:
   commands:
     - echo "Updating lambda Function..."
     - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
     - echo "Cleaning up deployment artifacts..."
     - rm deployment_package.zip  # Remove the local artifact
-    - aws s3 rm s3://codepipeline-eu-west-2-128906238024/deployment_package.zip  # Remove the artifact from S3
+    - aws s3 rm s3://github-to-lambda-bucket/deployment_package.zip  # Remove the artifact from S3
     - echo "DONE!!"
 artifacts:
   files: deployment_package.zip
-
-
-#  post_build:
-#    commands:
-#      - echo "Updating lambda Function..."
-#      - aws lambda update-function-code --function-name github-lambda-demo --zip-file fileb://deployment_package.zip
-#      - echo "DONE!!"
